@@ -1,23 +1,17 @@
-// --- 1. ATTENDRE QUE LE DOM SOIT CHARGÉ ---
 document.addEventListener('DOMContentLoaded', () => {
 
-    // --- 2. SÉLECTION DES ÉLÉMENTS DU DOM ---
+    // --- SÉLECTION DES ÉLÉMENTS DU DOM ---
     const coutCampagneInput = document.getElementById('cout-campagne');
     const produitsContainer = document.getElementById('produits-container');
     const seuilTotalVentesSpan = document.getElementById('seuil-total-ventes');
     const repartitionVentesUl = document.getElementById('repartition-ventes');
-    
-    // NOUVEAU : On sélectionne notre bouton "Calculer"
     const calculateBtn = document.getElementById('calculate-btn');
+    const addProductBtn = document.getElementById('add-product-btn');
 
-    // --- 3. LE MOTEUR DE CALCUL (Logique pure) ---
-    // Cette partie ne change pas. C'est notre moteur, il est parfait.
+    // --- LE MOTEUR DE CALCUL (Logique pure) ---
     function calculerRentabilite(data) {
         const { coutCampagne, produits } = data;
-
-        if (coutCampagne <= 0 || produits.length === 0) {
-            return null;
-        }
+        if (coutCampagne <= 0 || produits.length === 0) return null;
 
         let margeTotalePonderee = 0;
         let totalMix = 0;
@@ -44,8 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
         };
     }
 
-    // --- 4. GESTION DE L'INTERFACE (UI) ---
-    // Cette fonction est maintenant appelée UNIQUEMENT par le bouton
+    // --- GESTION DE L'INTERFACE (UI) ---
     function mettreAJourCalculs() {
         const coutCampagne = parseFloat(coutCampagneInput.value) || 0;
         const produitItems = document.querySelectorAll('.produit-item');
@@ -81,11 +74,30 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // --- 5. ÉCOUTEURS D'ÉVÉNEMENTS (LA PARTIE MODIFIÉE) ---
-    
-    // SUPPRIMÉ : L'ancienne logique qui écoutait tous les inputs.
-    
-    // NOUVEAU : On ajoute un seul écouteur d'événement sur le clic du bouton.
-    // C'est lui, et seulement lui, qui déclenche le calcul.
+    function ajouterLigneProduit() {
+        const newProductLine = document.createElement('div');
+        newProductLine.classList.add('produit-item');
+        newProductLine.innerHTML = `
+            <input type="text" class="nom-produit" placeholder="Nom du produit">
+            <input type="number" class="prix-vente" placeholder="Prix de vente">
+            <input type="number" class="cout-revient" placeholder="Coût de revient">
+            <input type="number" class="mix-ventes" placeholder="Ventes sur 10">
+            <button class="delete-btn">X</button>
+        `;
+        produitsContainer.appendChild(newProductLine);
+    }
+
+    function supprimerLigneProduit(event) {
+        if (event.target.classList.contains('delete-btn')) {
+            const produitItems = document.querySelectorAll('.produit-item');
+            if (produitItems.length > 1) { // Empêche de supprimer la dernière ligne
+                event.target.parentElement.remove();
+            }
+        }
+    }
+
+    // --- ÉCOUTEURS D'ÉVÉNEMENTS ---
     calculateBtn.addEventListener('click', mettreAJourCalculs);
+    addProductBtn.addEventListener('click', ajouterLigneProduit);
+    produitsContainer.addEventListener('click', supprimerLigneProduit);
 });
