@@ -5,123 +5,76 @@
     --orange-vif: #FFA500;
     --gris-clair: #f4f4f4;
     --texte-couleur: #333;
+    --rouge-suppression: #e74c3c;
 }
 
 /* Reset et styles de base */
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
     font-family: 'Montserrat', sans-serif;
-    font-family: sans-serif;
     line-height: 1.6;
     color: var(--texte-couleur);
     background-color: var(--gris-clair);
     padding: 20px;
 }
 
-/* Structure et Conteneurs */
-header, footer {
-    text-align: center;
-    margin-bottom: 30px;
-}
+/* ... (Le reste du CSS de base reste le même) ... */
+header, footer { text-align: center; margin-bottom: 30px; }
+header h1 { color: var(--bleu-nuit); margin-bottom: 5px; }
+footer { margin-top: 40px; font-size: 0.9em; }
+main { max-width: 800px; margin: 0 auto; background-color: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+section { margin-bottom: 30px; }
+h2 { color: var(--bleu-nuit); border-bottom: 2px solid var(--orange-vif); padding-bottom: 10px; margin-bottom: 20px; }
+label { display: block; margin-bottom: 5px; font-weight: bold; }
+input[type="number"], input[type="text"] { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-family: 'Montserrat', sans-serif; }
 
-header h1 {
-    color: var(--bleu-nuit);
-    margin-bottom: 5px;
-}
-
-footer {
-    margin-top: 40px;
-    font-size: 0.9em;
-}
-
-main {
-    max-width: 800px;
-    margin: 0 auto;
-    background-color: #fff;
-    padding: 30px;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-}
-
-section {
-    margin-bottom: 30px;
-}
-
-h2 {
-    color: var(--bleu-nuit);
-    border-bottom: 2px solid var(--orange-vif);
-    padding-bottom: 10px;
-    margin-bottom: 20px;
-}
-
-/* Styles des formulaires (Inputs) */
-.input-group, .produit-item {
-    margin-bottom: 15px;
-}
-
-label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-}
-
-input[type="number"], input[type="text"] {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
+/* NOUVEAUX STYLES & MISES À JOUR */
 
 .produit-item {
     display: grid;
-    grid-template-columns: 2fr 1fr 1fr 1fr;
+    /* On ajoute une colonne pour le bouton supprimer */
+    grid-template-columns: 2fr 1fr 1fr 1fr 40px;
     gap: 10px;
+    align-items: center;
+    margin-bottom: 10px;
 }
 
-/* Styles des résultats (Outputs) */
-#resultat-principal {
-    background-color: var(--bleu-nuit);
-    color: #fff;
-    text-align: center;
-    padding: 20px;
-    border-radius: 8px;
-    margin-bottom: 20px;
-}
-
-#seuil-total-ventes {
-    display: block;
-    font-size: 3em;
-    font-weight: bold;
-    color: var(--orange-vif);
-}
-
-#repartition-ventes {
-    list-style: none;
-}
-
-#repartition-ventes li {
-    background-color: var(--gris-clair);
-    padding: 10px;
+#add-product-btn {
+    background: none;
+    border: 1px solid var(--bleu-nuit);
+    color: var(--bleu-nuit);
+    padding: 8px 15px;
     border-radius: 4px;
-    margin-bottom: 5px;
-
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-top: 10px;
 }
+#add-product-btn:hover { background-color: var(--bleu-nuit); color: #fff; }
+
+.delete-btn {
+    background-color: var(--gris-clair);
+    color: var(--rouge-suppression);
+    border: none;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%; /* Le rend circulaire */
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    justify-self: end; /* Aligne le bouton à droite dans sa colonne */
+}
+.delete-btn:hover { background-color: var(--rouge-suppression); color: #fff; }
 
 .action-group { text-align: center; margin-bottom: 30px; }
-#calculate-btn {
-    background-color: var(--orange-vif);
-    color: #fff;
-    border: none;
-    padding: 15px 30px;
-    font-size: 1.1em;
-    font-weight: bold;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
+#calculate-btn { background-color: var(--orange-vif); color: #fff; border: none; padding: 15px 30px; font-size: 1.1em; font-weight: bold; border-radius: 5px; cursor: pointer; transition: background-color 0.3s; }
 #calculate-btn:hover { background-color: #e69500; }
+
+#resultat-principal { background-color: var(--bleu-nuit); color: #fff; text-align: center; padding: 20px; border-radius: 8px; margin-bottom: 20px; }
+#seuil-principal-valeur { display: block; font-size: 2.5em; font-weight: bold; color: var(--orange-vif); }
+#seuil-principal-label { font-size: 1.2em; }
+#repartition-ventes { list-style: none; }
+#repartition-ventes li { background-color: var(--gris-clair); padding: 10px; border-radius: 4px; margin-bottom: 5px; }
