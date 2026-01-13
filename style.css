@@ -15,6 +15,7 @@
 }
 
 body {
+    font-family: 'Montserrat', sans-serif;
     font-family: sans-serif;
     line-height: 1.6;
     color: var(--texte-couleur);
@@ -108,4 +109,5 @@ input[type="number"], input[type="text"] {
     padding: 10px;
     border-radius: 4px;
     margin-bottom: 5px;
+
 }
